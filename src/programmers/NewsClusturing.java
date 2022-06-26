@@ -9,7 +9,7 @@ import java.util.Set;
 public class NewsClusturing {
 
     public static void main(String[] args) {
-        System.out.println(solution("aa1+aa2", "AAAA12"));
+        System.out.println(solution("E=M*C^2", "e=m*c^2"));
     }
 
     public static int solution(String str1, String str2){
@@ -26,18 +26,23 @@ public class NewsClusturing {
         str1Set.retainAll(str2Set);
 
         double jacquard = (str1Set.size()*1.0)/totalSet.size();
-
-        int result = (int) Math.round(jacquard * 65536);
+        if(Double.isNaN(jacquard)) jacquard = 1;
+        int result = (int) Math.floor(jacquard * 65536);
         return result;
     }
 
     public static Set<String> getElementSet(String[] strArr){
         Set<String> strSet = new HashSet<>();
-        String temp = "";
+        String str = "";
+        int v = 0;
         for(int i=0; i<strArr.length-1; i++){
-            temp = strArr[i] + strArr[i+1];
-            if(!temp.matches("[a-z][a-z]")) continue;
-            strSet.add(temp);
+            v = 1;
+            str = strArr[i] + strArr[i+1];
+            if(!str.matches("[a-z][a-z]")) continue;
+            while (strSet.contains(str+v)){
+                v+=1;
+            }
+            strSet.add(str+v);
         }
         return strSet;
     }
