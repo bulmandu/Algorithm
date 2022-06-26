@@ -13,11 +13,9 @@ public class NewsClusturing {
     }
 
     public static int solution(String str1, String str2){
-        String[] str1Arr = str1.toLowerCase().split("");
-        String[] str2Arr = str2.toLowerCase().split("");
 
-        Set<String> str1Set = getElementSet(str1Arr);
-        Set<String> str2Set = getElementSet(str2Arr);
+        Set<String> str1Set = getElementSet(str1);
+        Set<String> str2Set = getElementSet(str2);
 
         Set<String> totalSet = new HashSet<>();
         totalSet.addAll(str1Set);
@@ -31,18 +29,19 @@ public class NewsClusturing {
         return result;
     }
 
-    public static Set<String> getElementSet(String[] strArr){
+    public static Set<String> getElementSet(String str){
+        String[] strArr = str.toLowerCase().split("");
         Set<String> strSet = new HashSet<>();
-        String str = "";
+        String temp = "";
         int v = 0;
         for(int i=0; i<strArr.length-1; i++){
             v = 1;
-            str = strArr[i] + strArr[i+1];
-            if(!str.matches("[a-z][a-z]")) continue;
-            while (strSet.contains(str+v)){
+            temp = strArr[i] + strArr[i+1];
+            if(!temp.matches("[a-z][a-z]")) continue;
+            while (strSet.contains(temp+v)){
                 v+=1;
             }
-            strSet.add(str+v);
+            strSet.add(temp+v);
         }
         return strSet;
     }
